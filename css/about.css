@@ -1,0 +1,13 @@
+#about {
+    height: 100vh;
+    width: 100vw;
+}
+
+#about .p {
+    position: absolute;
+    inset: 50%;
+    transform: translate(-50%, -50%);
+    width: min(90vmin, 400px);
+    height: fit-content;
+    background: red,
+}

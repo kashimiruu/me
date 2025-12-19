@@ -1,0 +1,80 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css");
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&family=Press+Start+2P&display=swap');
+
+@import url('./nav.css');
+@import url('./hero.css');
+@import url('./about.css');
+@import url('./certs.css');
+
+:root {
+    --dark: hsl(210 8% 8%);
+    --black: hsl(210, 8%, 28%);
+    --white: hsl(210 8% 97.7%);
+    --max-width: 1400px;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+html {
+    font-size: 14px;
+    scroll-behavior: smooth;
+    overflow-y: scroll;
+}
+
+@media screen and (min-width: 900px) {
+    html {
+        font-size: 18px;
+    }
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    text-decoration: none;
+    color: var(--white);
+    font-weight: 300;
+    font-family: "Fira Sans", sans-serif;
+    font-size: 1rem;
+}
+
+body {
+    background: var(--dark);
+}
+
+.h2 {
+    text-align: center;
+    font-size: max(36px, 12vmin);
+    font-weight: 100;
+    line-height: 1;
+}
+
+b {
+    font-weight: 400;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 3px;
+}
+
+.serif {
+    font-family: "Playfair", serif;
+}
+
+svg.logo path {
+    fill: var(--white);
+}
+
+section {
+    position: relative;
+    height: fit-content;
+    min-height: 100vh;
+    width: fit-content;
+    min-width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

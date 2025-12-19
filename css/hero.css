@@ -1,0 +1,43 @@
+#hero {
+    justify-content: center;
+    align-items: center;
+}
+
+#hero .header {
+    display: flex;
+    flex-direction: column;
+    row-gap: 3vmin;
+}
+
+#hero .header a {
+    align-self: center;
+}
+
+#hero .header button {
+    color: var(--dark);
+    padding: 3vmin 5vmin;
+    border-radius: 50px;
+    font-size: min(4vw, 21.36px);
+    cursor: pointer;
+}
+
+#hero .footer {
+    width: calc(100vw - 10vmin);
+    position: absolute;
+    bottom: 5vmin;
+    left: 5vmin;
+    display: flex;
+    justify-content: space-between;
+}
+
+#hero .carousel {
+    position: absolute;
+    inset: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    overflow:hidden;
+    z-index: -2;
+    height: 100%;
+    max-height: 100%;
+    min-height: 100%;
+}
