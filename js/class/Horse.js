@@ -43,7 +43,7 @@ export default class Horse {
             repeat: -1,
             keyframes: {
                 scale: [1, 0.3, 1],
-                opacity: [1, 0.3, 1],
+                filter: ["brightness(1)", "brightness(0.3)", "brightness(1)"],
                 zIndex: [-1, -20, -1],
             },
         });

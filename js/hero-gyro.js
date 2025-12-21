@@ -23,6 +23,8 @@ await (async () => {
     const hero = document.querySelector('#hero');
     const maxTiltMouse = 45;
     const maxTiltGyro = 30;
+    let lastTap = 0;
+    const DOUBLE_TAP_DURATION = 300;
 
     let startingGyro = {};
 
@@ -44,19 +46,29 @@ await (async () => {
         wrapper.style.transform = `rotateX(${-y}deg) rotateY(${x}deg)`;
     }
 
+    function resetGyro() {
+        window.addEventListener('deviceorientation', (e) => {
+            startingGyro = {
+                g: e.gamma, 
+                b: e.beta
+            };
+        }, {once: true});
+    }
+
     const heroObserver = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                window.addEventListener('deviceorientation', (e) => {
-                    startingGyro = {
-                        g: e.gamma, 
-                        b: e.beta
-                    };
-                }, {once: true});
+                resetGyro();
                 hero.addEventListener('mousemove', handleMouseMove);
                 window.addEventListener('deviceorientation', handleGyro);
+                hero.addEventListener('touchend', (e) => {
+                    const now = Date.now();
+                    if (now - lastTap <= DOUBLE_TAP_DURATION) {
+                        resetGyro();
+                        lastTap = now;
+                    }
+                });
             } else {
-                hero.removeEventListener('mousemove', handleMouseMove);
                 window.removeEventListener('deviceorientation', handleGyro);
             }
         });

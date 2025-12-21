@@ -19,19 +19,25 @@
         // play and pause the videos when in-view and out-view
         const videoObserver = new IntersectionObserver((entries) => {
             entries.forEach(async (entry) => {
-                entry.target.src = window.assets.get[entry.target.dataset.badge];
-                entry.target.muted = true;
-                entry.target.autoplay = true;
-                entry.target.playsInline = true;
-                entry.target.loop = true;
                 if (entry.isIntersecting) {
-                    entry.target.play()?.catch(() => {}); // catch() is to ignore errors when autoplay is blocked
+                    entry.target.play()?.catch((error) => {
+                        console.warn(error);
+                    }); 
                 } else {
                     entry.target.pause();
                 }
             });
         });
-        document.body.querySelectorAll('video').forEach(video => { videoObserver.observe(video)});
+        document.body.querySelectorAll('video').forEach(video => {
+            video.src = window.assets.get[video.dataset.badge];
+            video.onload = () => {
+                video.muted = true;
+                video.autoplay = true;
+                video.playsInline = true;
+                video.loop = true;
+                videoObserver.observe(video);
+            }
+        });
 
         // to improve readability in index file
         document.body.querySelectorAll('svg').forEach(svg => {
