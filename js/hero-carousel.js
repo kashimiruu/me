@@ -7,7 +7,7 @@ await (async () => {
     // fills the carousel
     let assetsCopy = [];
     let horses = [];
-    const COUNTS = Math.floor(window.innerWidth/80);
+    const COUNTS = Math.max(Math.floor(window.innerWidth/80), 12);
     for (let i = COUNTS, width = window.innerWidth; i > 0; i-- ){
         if (assetsCopy.length == 0) assetsCopy = Object.keys(window.assets.list).filter(key => key !== "ocean_eyes");
         const assetName = assetsCopy[Math.floor(Math.random() * assetsCopy.length)];
@@ -17,23 +17,18 @@ await (async () => {
         horse.play();
         horses.push(horse);
     };
-    
-    const timeline = gsap.timeline({
-        scrollTrigger: {
-            trigger: hero,
-            start: "top top",
-            end: "+=400vh",
-            scrub: true,
-            pin: true,
-        }
-    })
     Array.from(carousel.children).forEach((horse) => {
-        timeline.fromTo(horse, {
+        gsap.fromTo(horse, {
             y: 0,
         }, {
             y: `${80*Math.random()-50}vh`,
-            ease: "ease-out",
-        }, "<");
+            duration: 2,
+            repeat: -1,
+            delay: 3,
+            repeatDelay: 10,
+            yoyo: true,
+            ease: "ease-in",
+        });
     });
 
     let currentWidth = window.innerWidth;

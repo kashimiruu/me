@@ -1,14 +1,15 @@
 export default class Horse {
     constructor(assetName, xCoordinate) {
         this.x = xCoordinate;
-        this.duration = 15;
+        this.duration = window.innerWidth/70;
         this.asset = (window.assets.isImg(assetName)) ? document.createElement("img") : document.createElement("video");
         Object.assign(this.asset.style, {
+            x: this.x + "px",
             height: "300px",
             width: "auto",
             position: "absolute",
             top: "calc(50% - 150px)",
-            left: this.x + "px",
+            left: "0px",
             opacity: "100%",
         });
         
@@ -32,10 +33,10 @@ export default class Horse {
         this.animation?.kill();
         this.animation = gsap.timeline();
         this.animation.fromTo(this.asset, { 
-            left: window.innerWidth,
+            x: window.innerWidth,
             transform: "rotateY(0deg)",
         },{
-            left: 0,
+            x: 0,
             ease: "none",
             duration: this.duration,
             transform: "rotateY(180deg)",

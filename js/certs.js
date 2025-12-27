@@ -6,38 +6,42 @@ await (async () => {
     table.style.position = "relative";
 
     // popper badges
-    certificates.forEach(item => {
+    certificates.forEach((item, index) => {
+        if (index === certificates.length - 1) return;
+        item.style.position = "relative";
         item.popper = document.createElement('img');
         item.popper.src = item.dataset.badge;
-        item.popper.style.width = "100px";
-        item.popper.style.background = "white";
-        item.popper.style.border = "10px solid white";
-        item.popper.style.borderRadius = "5px";
-        item.popper.defaultTop = item.offsetTop;
-        item.popper.reset = {
-            left: item.offsetLeft,
-            opacity: 0,
+        Object.assign(item.popper.style, {
+            width: "100px",
+            background: "white",
+            border: "10px solid white",
+            borderRadius: "5px",
+            cursor: "pointer",
             position: "absolute",
-            top: item.offsetTop,
+            top: item.offsetTop + "px",
+            left: item.offsetLeft + "px",
             transform: "translateX(-100%)",
-        }
+        });
+        table.appendChild(item.popper);
+        item.popper.onclick = () => {window.open(item.href, '_self')};
     });
 
     // traverse animation
-    let delay = 0
+    let delay = 0;
+    let duration = 3; 
     certificates.forEach( (item, index) => {
         if (index === certificates.length - 1) return;
-        let duration = 3;
-        item.animation?.kill();
         item.animation = gsap.timeline({
             repeat: -1,
             delay: delay,
+            repeatDelay: duration * (certificates.length - 1),
         });
         item.animation.call(() => {
-            item.style.position = "relative";
             table.appendChild(item.popper);
         });
-        item.animation.fromTo(item.popper, item.popper.reset, {
+        item.animation.fromTo(item.popper, {
+            opacity: 0,
+        }, {
             opacity: 1, 
             duration: 0.5,
         });
@@ -47,14 +51,18 @@ await (async () => {
             background: "#333",
             duration: 0.5,
         }, "<");
-        item.animation.to(item.popper, {duration: duration - 1});
-        item.animation.to(item.popper, {opacity: 0, duration: 0.5});
-        item.animation.to(item, {background: "transparent", duration: 0.5,  }, "<");
-        item.animation.to(item.popper, {duration: duration * (certificates.length - 1)});
+        item.animation.to(item.popper, {
+            opacity: 0, 
+            duration: 0.5,
+            delay: duration - 1
+        });
+        item.animation.to(item, { 
+            background: "transparent", 
+            duration: 0.5,
+        }, "<");
         item.animation.call(() => {
             item.popper.remove();
         });
-
         item.animation.pause();
         delay += duration;
     });
@@ -73,5 +81,8 @@ await (async () => {
         });
     });
     certificationObserver.observe(certifications);
- 
+
+    window.addEventListener('resize', () => {
+        certificates.forEach(item => {if(item.popper) item.popper.style.left = item.offsetLeft + "px"});
+    });
 })();
