@@ -1,19 +1,19 @@
 (async () => {
+    document.body.appendChild(loadingScreen);
+    await updateLoadingMessage('scripts');
     await import("./gsap.js");
+    await updateLoadingMessage('assets');
     await import("./assets.js");
+    await updateLoadingMessage('animations');
     await import("./nav.js");
     await import("./hero.js");
     await import("./about.js");
     await import("./certs.js");
-    main();
+    await main();
 
-    //const imports = setInterval( async () => {
-        //if (window.gsap && window.gsapPlugins) { // && window.assetsLoaded) {
-            // await import("./footer.js");
-            //clearInterval(imports);
-            // main();
-        //}
-    //}, 1023);
+    async function updateLoadingMessage(msg) {
+        loadingScreen.innerHTML = "loading " + msg + "...";
+    }
     
     async function main() {
         // play and pause the videos when in-view and out-view
@@ -46,5 +46,7 @@
             svg.setAttribute('viewBox', window.svg[svg.dataset.badge].viewBox);
             svg.querySelector('path').setAttribute('d', window.svg[svg.dataset.badge].path);
         });
+
+        loadingScreen.remove();
     }
 })();
