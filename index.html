@@ -6,6 +6,21 @@
     <title>kashimiruu</title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="shortcut icon" href="./favicon.svg" type="image/x-icon">
+    <script>
+        const loadingScreen = document.createElement('div');
+        window.loadingScreen = loadingScreen;
+        Object.assign(loadingScreen.style, {
+           position: "fixed",
+           width: "100dvw",
+           height: "100dvh",
+           inset: "0",
+           background: "#111", 
+           zIndex: 10232002,
+           display: "flex",
+           justifyContent: "center",
+           alignItems: "center",
+        });
+    </script>
 </head>
 <body>
     <nav>
